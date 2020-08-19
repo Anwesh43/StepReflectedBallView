@@ -170,8 +170,31 @@ class StepReflectedBallView(ctx : Context) : View(ctx) {
             }
         }
 
-        fun startUdpating(cb : () -> Unit) {
+        fun startUpdating(cb : () -> Unit) {
             curr.startUpdating(cb)
+        }
+    }
+
+    data class Renderer(var view : StepReflectedBallView) {
+
+        private val animator : Animator = Animator(view)
+        private val srb : StepReflectedBall = StepReflectedBall(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            srb.draw(canvas, paint)
+            animator.animate {
+                srb.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            srb.startUpdating {
+                animator.start()
+            }
         }
     }
 }
