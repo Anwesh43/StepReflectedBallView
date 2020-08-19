@@ -13,7 +13,7 @@ import android.app.Activity
 import android.content.Context
 
 val colors : Array<String> = arrayOf("#4CAF50", "#F44336", "#3F51B5", "#FF9800", "#2196F3")
-val parts : Int = 2
+val parts : Int = 3
 val scGap : Float = 0.02f / parts
 val strokeFactor : Float = 90f
 val sizeFactor : Float = 5.8f
@@ -27,15 +27,15 @@ fun Float.sinify() : Float = Math.sin(this * Math.PI).toFloat()
 
 fun Canvas.drawStepReflectedBall(scale : Float, w : Float, h : Float, paint : Paint) {
     val sf : Float = scale.sinify()
-    val sf1 : Float = scale.divideScale(0, parts)
-    val sf2 : Float = scale.divideScale(1, parts)
-    val sf3 : Float = scale.divideScale(2, parts)
+    val sf1 : Float = sf.divideScale(0, parts)
+    val sf2 : Float = sf.divideScale(1, parts)
+    val sf3 : Float = sf.divideScale(2, parts)
 
     val r : Float = Math.min(w, h) / sizeFactor
     save()
     translate(0f, h / 2)
     drawLine(0f, 0f, w * sf, 0f, paint)
-    drawCircle(r +(w / 2 - r) * (sf2 + sf3), r + (h / 2 - r) * (sf2 - sf3), r * sf1, paint)
+    drawCircle(r +(w / 2 - r) * (sf2 + sf3), - h / 2 + r * 1.1f + (h / 2 - 2 * r) * (sf2 - sf3), r * sf1, paint)
     restore()
 }
 
