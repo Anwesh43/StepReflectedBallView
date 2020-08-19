@@ -197,4 +197,13 @@ class StepReflectedBallView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : StepReflectedBallView {
+            val view : StepReflectedBallView = StepReflectedBallView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
